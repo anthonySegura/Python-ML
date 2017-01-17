@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 #Implementación del Algoritmo Gradiente Descendente en Python
 
-
 from util import float_cmp
+
 
 #Funciones de Costo
 def J0(theta0, theta1, data):
@@ -22,19 +26,19 @@ def J1(theta0, theta1, data):
 
 
 #Gradiente Descendente
-def AGD(theta0, theta1, alpha, data):
-    t0, t1, convergencia = theta0, theta1, False
-    while not convergencia:
+def AGD(theta0, theta1, alpha, data, iterations = 1000):
+    t0, t1 = theta0, theta1
+
+    while iterations > 0:
+        iterations -= 1
         #Actualización simultanea de theta0 y theta1
         t0 = t0 - (alpha * J0(theta0, theta1, data))
         t1 = t1 - (alpha * J1(theta1, theta1, data))
-
-        #Comprobación de convergencia
-        if float_cmp(t0,theta0) and float_cmp(t1,theta1):
-            convergencia = True
-        else:
-            theta0 = t0
-            theta1 = t1
-
+        theta0 = t0
+        theta1 = t1
+        
     return theta0, theta1
 
+data = [(1,1),(2,2),(3,3)]
+result = AGD(0,1,0.1,data)
+print(result)
