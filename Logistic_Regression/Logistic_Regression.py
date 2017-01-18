@@ -32,3 +32,5 @@ def logisticRegression(X, y, theta):
     result = op.minimize(fun = costFunction, x0 = theta, args = (X, y),
                          method = 'TNC', jac = gradient)
     return result
+
+
