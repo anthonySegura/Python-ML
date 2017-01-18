@@ -4,8 +4,6 @@
 
 #Implementación del Algoritmo Gradiente Descendente en Python
 
-from util import float_cmp
-
 
 #Funciones de Costo
 def J0(theta0, theta1, data):
@@ -39,6 +37,3 @@ def AGD(theta0, theta1, alpha, data, iterations = 1000):
         
     return theta0, theta1
 
-data = [(1,1),(2,2),(3,3)]
-result = AGD(0,1,0.1,data)
-print(result)
