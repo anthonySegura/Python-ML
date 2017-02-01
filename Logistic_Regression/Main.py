@@ -1,4 +1,5 @@
 
+
 import pandas as pd                 #Para manipular datos
 import numpy as np                  #Para algebra lineal
 import matplotlib.pyplot as plt     #Para graficar
@@ -48,3 +49,4 @@ if __name__ == '__main__':
 
     plt.legend()
     plt.show()
+
