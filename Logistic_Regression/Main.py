@@ -22,6 +22,8 @@ if __name__ == '__main__':
     initial_theta = np.zeros((3, 1))
 
     optimized_theta = logisticRegression(X, y, initial_theta).x
+    
+    print(optimized_theta)
 
     #Predicciones para los datos de entrada
     p = sigmoid(X.dot(optimized_theta)) >= 0.5
