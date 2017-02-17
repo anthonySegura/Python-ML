@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt     #Para graficar
 
 from Logistic_Regression import logisticRegression, sigmoid
 
+
 if __name__ == '__main__':
 
     #Lectura del dataset con pandas
@@ -23,8 +24,6 @@ if __name__ == '__main__':
 
     optimized_theta = logisticRegression(X, y, initial_theta).x
     
-    print(optimized_theta)
-
     #Predicciones para los datos de entrada
     p = sigmoid(X.dot(optimized_theta)) >= 0.5
     #Numero de predicciones exitosas

@@ -24,7 +24,8 @@ def regCostFunction(theta, X, y, _lambda = 0.1):
     m = len(y)
     h = sigmoid(X.dot(theta))
     tmp = np.copy(theta)
-    tmp[0] = 0
+    #Al regularizar no se incluye Theta[0]
+    tmp[0] = 0 
     reg = (_lambda/(2*m)) * np.sum(tmp**2)
 
     return (1 / m) * (-y.T.dot(np.log(h)) - (1 - y).T.dot(np.log(1 - h))) + reg
@@ -59,6 +60,8 @@ def regGradient(theta, X, y, _lambda = 0.1):
 def logisticRegression(X, y, theta):
     result = op.minimize(fun = regCostFunction, x0 = theta, args = (X, y),
                          method = 'TNC', jac = regGradient)
+    
     return result
 
 
+ 
