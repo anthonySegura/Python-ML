@@ -1,19 +1,19 @@
-import numpy as np 
-import matplotlib.pyplot as plt 
-from Logistic_Regression import regCostFunction, regGradient, sigmoid
+import numpy as np
 
-def gradientDescent(X, y, theta, alpha, iters):
-	jHistory = np.zeros((iters,1))
-	m , n = X.shape
-	final_theta = np.ones((n,1))
+def gradientDescent(X, y, alpha, iters, activationFunction):
+	m, n = X.shape   #Numero de ejemplos y caracteristicas
+	theta = np.zeros((n, 1))
+
 	for i in range(iters):
-		h = X.dot(final_theta)
+		#Calculo de la hipotesis
+		h = activationFunction(np.dot(X, theta))
 		error = h - y
-		grad = regGradient(final_theta, X, y)
-		final_theta = final_theta - (alpha * grad)
+		grad = X.T.dot(error) / m
 
-		#Calculo del costo
-		J = regCostFunction(final_theta, X, y)
-		print("iteracion : ", i+1, " | Costo : ", J)
+		cost = np.sum(error ** 2) / (2 * m)
+		print(cost)
 
-		jHistory[i] = J
+		#Actualizacion de theta
+		theta += (-alpha * grad)
+
+	return theta
