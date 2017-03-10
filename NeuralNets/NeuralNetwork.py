@@ -1,42 +1,43 @@
 
 import numpy as np
+import pandas as pd
+from sklearn.cross_validation import train_test_split
 
-class TwoLayerNeuralNet():
-	"""Red neuronal simple completamente conectada"""
-	def __init__(self, data, labels, output_units = 10 ,hidden_units = 28):
-		self.X = data
-		self.y = labels
-		self.m , self.n = data.shape
-		self.output_units = output_units
-		self.hidden_units = hidden_units
-		self.Theta1 = np.random.rand(hidden_units, self.n + 1)
-		self.Theta2 = np.random.rand(output_units, hidden_units + 1)
+import warnings
+warnings.filterwarnings('ignore')
 
+data = pd.read_csv('./Data/train.csv')
 
-	def costFunction(self, _lambda, Y, h):
-		reg = (_lambda / (2* self.m)) * (np.sum(np.sum(self.Theta1[:,1:]**2,2)) + np.sum(np.sum(self.Theta2[:,1:]**2,2)))
-		#Calculo del costo
-		return (1 / self.m) * np.sum(np.sum((-Y)*np.log(h) - (1 - Y) * np.log(1 - h), 2)) + reg
+#42000 x 785
 
+m, m_train, m_test = 42000, 33600, 8400
 
-	def __sigmoid(self, z):
-		return 1 / (1 + np.exp(-z))
+X = data.as_matrix()[:,1::]
+X = np.column_stack((np.ones((m, 1)), X))
+y = data['label']
+
+#Division del Dataset
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 11)
 
 
-	def __sigmoidGrad(self, z):
-		return self.__sigmoid(z) * (1 - self.__sigmoid(z))
+
+#Funcion de Activacion
+def sigmoid(z):
+    return 1.0 / (1.0  + np.exp(-z))
+
+#Cost Function
+def cost(X, y, h, _lambda, Theta1, Theta2):
+    m = X.shape[0]
+    #Regularizacion
+    reg = (_lambda / (2 * m)) * (np.sum(np.sum(Theta1[:, 1::]**2, 2)) + np.sum(np.sum(Theta2[:, 1::]**2, 2)))
+
+    return (1/m) * np.sum(np.sum((-y) * np.log(h) - (1 - y) * np.log(1 - h), 2)) + reg
 
 
-	def __feedForward(self, index):
-		#Agregando columna de 1's a X
-		a1 = np.column_stack((np.ones((self.m, 1)), self.X))
-		z2 = np.dot(a1[index, :], self.Theta1.T)
-		a2 = np.ones((z2.shape[0] + 1))  #np.column_stack((np.ones((z2.shape[0], 1)), self.__sigmoid(z2))) # + bias
-		a2[1:] = self.__sigmoid(z2)
-		z3 = np.dot(a2, self.Theta2.T)
-		a3 = self.__sigmoid(z3)
-
-		return a3
+#Calculo de los gradientes
+def gradient(X, y, h, prevGrad):
+    pass
 
 
-nn = TwoLayerNeuralNet(np.zeros((200,784)),[])
+
+

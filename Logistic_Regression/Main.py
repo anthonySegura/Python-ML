@@ -5,6 +5,7 @@ import numpy as np                  #Para algebra lineal
 import matplotlib.pyplot as plt     #Para graficar
 
 from Logistic_Regression import logisticRegression, sigmoid
+from Logistic_Regression import stochasticGradientDescent
 
 
 if __name__ == '__main__':
@@ -23,7 +24,8 @@ if __name__ == '__main__':
     initial_theta = np.zeros((3, 1))
 
     optimized_theta = logisticRegression(X, y, initial_theta).x
-    
+
+
     #Predicciones para los datos de entrada
     p = sigmoid(X.dot(optimized_theta)) >= 0.5
     #Numero de predicciones exitosas

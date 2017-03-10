@@ -1,7 +1,7 @@
 
 from scipy import optimize as op
 import numpy as np
-
+from sklearn.utils import shuffle
 
 #Funcion Logistica
 def sigmoid(z):
@@ -41,7 +41,19 @@ def gradient(theta, x, y):
     h = sigmoid(x.dot(theta))
     return ((1 / m) * x.T.dot(h - y))
 
+def stochasticGradientDescent(X, y, alpha, theta, iters):
+    #Desordenar el Dataset
+    X_train, y_train = X, y
+    m, n = X_train.shape
+    X_transpose = X_train.T
+    for iter in range(iters):
+        h = sigmoid(np.dot(X_train, theta))
+        loss = h - y_train
+        cost = np.sum(loss ** 2) / (2 * m)
+        print('Iteracion # ', iter, ' | Costo : ', cost)
 
+        #Actualizacion de theta
+        theta = theta - alpha * (np.dot(X_transpose, loss) / m)
 
 #Funcion del Gradiente Regularizada
 def regGradient(theta, X, y, _lambda = 0.1):
